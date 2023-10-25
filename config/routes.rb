@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Defines the root path route ("/")
-  # root "articles#index"
+  # long way
   get "/one_product", controller: "products", action: "get_one_product"
   get "/all_products", controller: "products", action: "get_all_products"
+
+  #short way
+  get "/first_product" => "products#first_product"
+  get "/second_product" => "products#second_product"
+  get "/third_product" => "products#third_product"
 end
