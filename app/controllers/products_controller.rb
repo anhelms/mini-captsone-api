@@ -9,11 +9,11 @@ class ProductsController < ApplicationController
     end
     def create
         @product = Product.create(
-            name: "Persian ivy", 
-            price: 20.00, 
-            image_url: "https://fossilcreektreefarm.com/cdn/shop/products/PersianIvy.jpg?v=1676581590", 
-            description: "It is an evergreen climbing plant, growing to 30 m high where suitable surfaces 
-            are available, and also growing as ground cover where there are no vertical surfaces.")
+            name: params["name"], 
+            price: params["price"], 
+            image_url: params["image_url"], 
+            description: params["description"]
+            )
         render template: "products/show"
     end
 end
