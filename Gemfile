@@ -70,3 +70,6 @@ group :test do
   gem "selenium-webdriver"
 
 end
+
+# allows configuration for different web requests
+gem "rack-cors"
