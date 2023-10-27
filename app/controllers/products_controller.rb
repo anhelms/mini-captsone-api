@@ -5,7 +5,11 @@ class ProductsController < ApplicationController
     end
     def show
         @product = Product.find_by(id: params["id"])
-        render template: "products/show"
+        if @product
+            render template: "products/show"
+        else
+            render json: {}
+        end
     end
     def create
         @product = Product.create(
@@ -25,5 +29,10 @@ class ProductsController < ApplicationController
             description: params["description"] || @product.description
             )
         render template: "products/show"
+    end
+    def destroy
+        product = Product.find_by(id: params["id"])
+        product.destroy
+        render json: {messsage: "Product successfully deleted!"}
     end
 end
