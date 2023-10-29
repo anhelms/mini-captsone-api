@@ -73,3 +73,5 @@ end
 
 # allows configuration for different web requests
 gem "rack-cors"
+
+gem "pg"
