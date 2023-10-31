@@ -18,7 +18,11 @@ class ProductsController < ApplicationController
             image_url: params["image_url"], 
             description: params["description"]
             )
-        render template: "products/show"
+        if @product.valid?
+            render template: "products/show"
+        else
+            render json: {errors: @product.errors.full_messages}, status: 422
+        end
     end
     def update
         @product = Product.find_by(id: params["id"])
