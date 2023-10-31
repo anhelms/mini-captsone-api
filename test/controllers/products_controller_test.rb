@@ -19,9 +19,20 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
 
   test "create" do
     assert_difference "Product.count", 1 do
-      post "/products.json", params: {name: "Persian ivy", price: 20.00,image_url: "https://fossilcreektreefarm.com/cdn/shop/products/PersianIvy.jpg?v=1676581590", description: "It is an evergreen climbing plant, growing to 30 m high where suitable surfaces 
-      are available, and also growing as ground cover where there are no vertical surfaces."}
+      post "/products.json", params: {name: "test product", price: 1, image_url: "image.jpg", description: "test description"}
       assert_response 200
+      data = JSON.parse(response.body)
+
+      refute_nil data["id"]
+      assert_equal "test product", data["name"]
+      assert_equal 1.0, data["price"].to_i
+      assert_equal "image.jpg", data["image_url"]
+      assert_equal "test description", data["description"]
+    end
+
+    assert_difference "Product.count", 0 do
+      post "/products.json", params: {}
+      assert_response 422
     end
   end
 
@@ -32,7 +43,14 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
 
     data = JSON.parse(response.body)
     assert_equal "Updated name", data["name"]
+    assert_equal product.price, data["price"].to_i
+    assert_equal product.image_url, data["image_url"]
+    assert_equal product.description, data["description"]
+
+    patch "/products/#{product.id}.json", params: { name: "" }
+    assert_response 422
   end
+
   test "destroy" do
     assert_difference "Product.count", -1 do
       delete "/products/#{Product.first.id}.json"

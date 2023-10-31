@@ -1,13 +1,13 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
+  name: apple
   price: 1
-  image_url: MyString
-  description: MyText
+  image_url: MyString.jpg
+  description: this is an apple
 
 two:
-  name: MyString
+  name: orange
   price: 1
-  image_url: MyString
-  description: MyText
+  image_url: MyString.jpg
+  description: this is an orange
