@@ -4,10 +4,11 @@ class Product < ApplicationRecord
     validates :description, presence: true, length: { in: 10..500 }
     validates_format_of :image_url, :with => %r{\.(png|jpg|jpeg)$}i, :message => "must have a valid file type", multiline: true
 
-    def supplier
-        supplier = Supplier.find_by(id: supplier_id)
-        return supplier
-    end
+    belongs_to :supplier
+    # def supplier
+    #     supplier = Supplier.find_by(id: supplier_id)
+    #     return supplier
+    # end
     def is_discounted?
         price <= 10
     end
