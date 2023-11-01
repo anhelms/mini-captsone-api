@@ -5,9 +5,11 @@ one:
   price: 1
   image_url: MyString.jpg
   description: this is an apple
+  supplier: one
 
 two:
   name: orange
   price: 1
   image_url: MyString.jpg
   description: this is an orange
+  supplier: one
