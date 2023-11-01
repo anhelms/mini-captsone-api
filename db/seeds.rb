@@ -12,4 +12,10 @@ product = Product.new(name: "Silver Satin Pothos", price: 10.00 , image_url: "ht
 product.save
 product = Product.new(name: "Saguaro Cactus", price: 155.00 , image_url: "https://www.cactusoutlet.com/cdn/shop/products/CM-Saguaro-Product-Main-V1.0_5000x.jpg?v=1643687569", description: "Also known as Carnegia gigantea. The massive iconic sentinel of the Sonoran desert grows up to 30 feet tall and features multiple arms. This cactus can handle moderate periods of frost down to 25 degrees fahrenheit. Available shipped to your door from one foot tall all the way up to six feet tall.")
 product.save
+supplier = Supplier.create(name: "Monrovia", email: "plantsrule@example.com", phone_number: "555-555-5555")
+supplier.save
+supplier = Supplier.create(name: "Lowes", email: "betterthanhomedepot@example.com", phone_number: "444-444-4444")
+supplier.save
+supplier = Supplier.create(name: "Silverlake Botany", email: "slbotany@example.com", phone_number: "222-222-2222")
+supplier.save
 puts "All done!"

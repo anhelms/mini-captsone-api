@@ -75,3 +75,5 @@ end
 gem "rack-cors"
 
 gem "pg"
+
+gem "seed_dump"
