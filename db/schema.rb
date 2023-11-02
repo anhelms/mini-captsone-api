@@ -30,7 +30,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_02_002914) do
     t.integer "inventory"
     t.boolean "active_status", default: true
     t.integer "supplier_id"
-    t.string "image"
   end
 
   create_table "suppliers", force: :cascade do |t|
