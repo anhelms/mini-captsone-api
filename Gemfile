@@ -77,3 +77,6 @@ gem "rack-cors"
 gem "pg"
 
 gem "seed_dump"
+
+#helps create JSON web tokens
+gem "jwt"
