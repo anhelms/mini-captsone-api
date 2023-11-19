@@ -1,6 +1,13 @@
 require "test_helper"
 
 class ProductsControllerTest < ActionDispatch::IntegrationTest
+  setup do
+    @user = User.create(name: "Test", email: "test@test.com", password: "password", admin: true)
+    post "/sessions.json", params: { email: "test@test.com", password: "password" }
+    data = JSON.parse(response.body)
+    @jwt = data["jwt"]
+  end
+
   test "index" do
     get "/products.json"
     assert_response 200
@@ -19,10 +26,12 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
 
   test "create" do
     assert_difference "Product.count", 1 do
-      post "/products.json", params: {name: "test product", price: 1, description: "test description", images: "test images", supplier_id: Supplier.first.id }
-      assert_response 200
-      data = JSON.parse(response.body)
+      post "/products.json", 
+        headers: {"Authorization" => "Bearer #{@jwt}"},
+        params: {name: "test product", price: 1, description: "test description", images: "test images", supplier_id: Supplier.first.id }
 
+      data = JSON.parse(response.body)
+      assert_response 200
       refute_nil data["id"]
       assert_equal "test product", data["name"]
       assert_equal 1.0, data["price"].to_i
@@ -30,14 +39,21 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_difference "Product.count", 0 do
-      post "/products.json", params: {}
+      post "/products.json",
+      headers: {"Authorization" => "Bearer #{@jwt}"},
+      params: {}
       assert_response 422
+
+      post "/products.json"
+      assert_response 401
     end
   end
 
   test "update" do
     product = Product.first
-    patch "/products/#{product.id}.json", params: { name: "Updated name" }
+    patch "/products/#{product.id}.json",
+      headers: {"Authorization" => "Bearer #{@jwt}"},
+      params: { name: "Updated name" }
     assert_response = 200
 
     data = JSON.parse(response.body)
@@ -45,14 +61,23 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
     assert_equal product.price, data["price"].to_i
     assert_equal product.description, data["description"]
 
-    patch "/products/#{product.id}.json", params: { name: "" }
+    patch "/products/#{product.id}.json", 
+      headers: {"Authorization" => "Bearer #{@jwt}"},
+      params: { name: "" }
     assert_response 422
+
+    patch "/products/#{product.id}.json"
+    assert_response 401
   end
 
   test "destroy" do
     assert_difference "Product.count", -1 do
-      delete "/products/#{Product.first.id}.json"
+      delete "/products/#{Product.first.id}.json",
+        headers: {"Authorization" => "Bearer #{@jwt}"}
       assert_response 200
     end
+
+  delete "/products/#{Product.first.id}.json"
+    assert_response 401
   end
 end
