@@ -17,3 +17,6 @@ category2 = Category.create!(name: "outdoor")
 
 category_products1 = CategoryProduct.create!(category_id: 1, product_id: 1)
 category_products2 = CategoryProduct.create!(category_id: 2, product_id: 2)
+
+carted_products1 = CartedProduct.create!(user_id: 1, product_id: 1, quantity: 1, status: "carted", order_id: 1)
+carted_products2 = CartedProduct.create!(user_id: 2, product_id: 2, quantity: 1, status: "carted", order_id: 2)
