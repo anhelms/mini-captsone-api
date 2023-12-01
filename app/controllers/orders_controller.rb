@@ -19,7 +19,7 @@ class OrdersController < ApplicationController
       )
 
       if @order.valid?
-        carted_products.update_all(status: "purchased", order_id: @order_id)
+        carted_products.update_all(status: "purchased", order_id: @order.id)
         @order.update_totals
         render :show
       else
